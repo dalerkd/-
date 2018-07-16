@@ -24,7 +24,7 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 DWORD g_minutes = 0;//时间-分钟
 DWORD g_minutesRealTime = 0;//会变动
 std::wstring g_tips;
-
+bool COMMAND_START = true;//命令行方式启动?
 
 void   CALLBACK   TimerProc(HWND   hWnd, UINT   nMsg, UINT   nTimerid, DWORD   dwTime);
 
@@ -66,8 +66,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		break;
 	default:
 	{
-		MessageBox(0,L"请使用如下格式\r\n *.exe 分钟数 提示内容",L"提示",MB_OK);
-		return -1;
+		COMMAND_START = false;
 	}
 		break;
 		
@@ -168,7 +167,7 @@ void   CALLBACK   TimerProc(HWND   hWnd, UINT   nMsg, UINT   nTimerid, DWORD   d
 		ss << g_minutes;
 		std::wstring title;
 		ss >> title;
-		title = L"本次计时" + title;
+		title = L"本次计时共计" + title+L"分钟";
 		MessageBox(0, g_tips.c_str(), title.c_str(), MB_OK);
 		ExitProcess(-1);
 	}
@@ -194,8 +193,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	pCWORK->AddTrayIcon();
 
-	
-	
+	if(COMMAND_START)
+	{
+	SetTimer(myHWND, 1, 60 * 1000, TimerProc);
+	}
 
 	return TRUE;
 }
@@ -306,7 +307,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_CREATE:
 	{
-		StartIn(hWnd);
+		if (!COMMAND_START)
+		{
+			StartIn(hWnd);
+		}
 		break;
 	}
 	default:
