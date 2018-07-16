@@ -21,7 +21,7 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 
-DWORD g_minutes = 0;//时间-分钟
+DWORD g_minutes = -1;//时间-分钟
 DWORD g_minutesRealTime = 0;//会变动
 std::wstring g_tips;
 bool COMMAND_START = true;//命令行方式启动?
