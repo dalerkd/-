@@ -171,6 +171,10 @@ void   CALLBACK   TimerProc(HWND   hWnd, UINT   nMsg, UINT   nTimerid, DWORD   d
 		MessageBox(0, g_tips.c_str(), title.c_str(), MB_OK);
 		ExitProcess(-1);
 	}
+	else
+	{
+		--g_minutesRealTime;
+	}
 
 }
 
