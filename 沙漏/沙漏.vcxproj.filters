@@ -30,12 +30,18 @@
     <ClInclude Include="沙漏.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Work.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="沙漏.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Work.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,6 +55,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="沙漏.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="沙漏.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
