@@ -249,8 +249,17 @@ LRESULT CheckLogInDlgProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 			SetTimer(myHWND, 1, 60 * 1000, TimerProc);
 			return (INT_PTR)TRUE;
 		default:
+			
 			break;
 		}
+		break;
+	case WM_CLOSE:
+	{
+		ExitProcess(0);
+		break;
+	}
+	default:
+		DefWindowProc(hDlg, Msg, wParam, lParam);
 	}
 		return (INT_PTR)FALSE;
 }
