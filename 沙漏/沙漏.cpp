@@ -154,13 +154,14 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 
 CWork* pCWORK = nullptr;
-HWND myHWND = nullptr;
+//HWND myHWND = nullptr;//就是要空,因为要共享
+UINT_PTR g_TIME_ID = 0;
 
 void   CALLBACK   TimerProc(HWND   hWnd, UINT   nMsg, UINT   nTimerid, DWORD   dwTime)
 {
 	if (0 == g_minutesRealTime || 1 == g_minutesRealTime)
 	{
-		KillTimer(myHWND, 1);
+		KillTimer(NULL, g_TIME_ID);
 		g_minutesRealTime = 0;
 
 		std::wstringstream ss;
@@ -192,14 +193,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	//ShowWindow(hWnd, nCmdShow);
 	//UpdateWindow(hWnd);
-	myHWND = hWnd;
+	
 	pCWORK = new CWork(hWnd);
 
 	pCWORK->AddTrayIcon();
-
+	
 	if(COMMAND_START)
 	{
-	SetTimer(myHWND, 1, 60 * 1000, TimerProc);
+		g_TIME_ID =  SetTimer(NULL, 1, 60 * 1000, TimerProc);
 	}
 
 	return TRUE;
@@ -246,7 +247,8 @@ LRESULT CheckLogInDlgProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 			ss >> g_minutes;
 			g_minutesRealTime = g_minutes;
 			EndDialog(hDlg, TRUE);
-			SetTimer(myHWND, 1, 60 * 1000, TimerProc);
+			g_TIME_ID = SetTimer(NULL, 1, 60 * 1000, TimerProc);
+			
 			return (INT_PTR)TRUE;
 		default:
 			

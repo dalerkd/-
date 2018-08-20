@@ -13,7 +13,7 @@ CWork::~CWork()
 }
 #include <sstream>
 extern std::wstring g_tips;
-extern HWND myHWND;
+extern UINT_PTR g_TIME_ID;
 extern DWORD g_minutesRealTime;
 
 LRESULT CWork::OnTrayIcon(HWND hd_hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -58,7 +58,7 @@ LRESULT CWork::OnTrayIcon(HWND hd_hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 			m_trayIcon.hIcon = NULL;
 			Shell_NotifyIcon(NIM_DELETE, &m_trayIcon);
-			KillTimer(myHWND, 1);
+			KillTimer(NULL, g_TIME_ID);
 			//ÍË³ö³ÌÐò
 			::PostQuitMessage(0);
 		}
